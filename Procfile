@@ -1,1 +1,1 @@
-web: gunicorn foodrush.wsgi --log-file -
+web: gunicorn briogas.wsgi --log-file -
