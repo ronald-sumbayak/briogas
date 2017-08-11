@@ -15,7 +15,6 @@ def retrieve_data (request):
 @permission_classes ([IsAuthenticated])
 def update_data (request):
     serializer = serializers.UpdateDataSerializer (data = request.data)
-    serializer.save ()
     serializer.is_valid (raise_exception = True)
     serializer.save ()
     return Response (serializer.data)
