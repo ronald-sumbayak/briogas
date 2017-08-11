@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -11,13 +12,14 @@ def retrieve_data (request):
     serializer = serializers.DataSerializer (data)
     return Response (serializer.data)
 
-@api_view (['POST', 'PATCH'])
-@permission_classes ([IsAuthenticated])
-def update_data (request):
-    serializer = serializers.UpdateDataSerializer (data = request.data)
-    serializer.is_valid (raise_exception = True)
-    serializer.save ()
-    return Response (serializer.data)
+class UpdateData (generics.UpdateAPIView):
+    serializer_class = serializers.DataSerializer
+    queryset = models.Data.objects.all ()
+    
+    def get_object (self):
+        if self.request.data.get ('id'):
+            return self.queryset.get (id = self.request.data['id'])
+        raise ValidationError ("id must be provided", "required")
 
 @api_view (['POST', 'PATCH'])
 @permission_classes ([IsAuthenticated])
