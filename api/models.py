@@ -1,4 +1,4 @@
-import datetime
+from _datetime import date
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -32,7 +32,8 @@ class Data (models.Model):
     
     @property
     def today_methane_production (self):
-        instance, created = MethaneProduction.objects.get_or_create (alat = self.alat)
+        instance, created = MethaneProduction.objects.get_or_create (alat = self.alat,
+                                                                     date = date.today ())
         return instance.value
     
     def __str__ (self):

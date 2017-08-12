@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 from rest_framework import generics, mixins
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import ValidationError
@@ -23,7 +23,7 @@ def update_data (request):
     data_serializer.save ()
     
     methane_product, created = alat.methaneproduction_set.get_or_create (
-        date = datetime.date.today ())
+        date = date.today ())
     methane_product.value += int (request.data.get (
         'methane_production', methane_product.value))
     methane_product.save ()
