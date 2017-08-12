@@ -25,9 +25,9 @@ class Data (models.Model):
     POWER_CHOICES = ((POWER_ON, "ON"), (POWER_OFF, "OFF"))
     
     alat = models.OneToOneField (Alat)
-    methane = models.IntegerField (default = 0)
+    methane = models.FloatField (default = 0.0)
     pressure = models.IntegerField (default = 0)
-    temperature = models.FloatField (default = 0)
+    temperature = models.FloatField (default = 0.0)
     power = models.BooleanField (choices = POWER_CHOICES, default = POWER_OFF)
     
     @property

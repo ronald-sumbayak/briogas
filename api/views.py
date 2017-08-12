@@ -23,7 +23,7 @@ def update_data (request):
     data_serializer.save ()
     
     methane_product, created = alat.methaneproduction_set.get_or_create (
-        date = datetime.date.today (), alat = alat)
+        date = datetime.date.today ())
     methane_product.value += int (request.data.get (
         'methane_production', methane_product.value))
     methane_product.save ()
