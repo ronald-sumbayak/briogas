@@ -20,17 +20,15 @@ class MethaneProduction (models.Model):
         return "%s (id = %d, date = %s)" % (self.alat.owner.__str__ (), self.alat.id, self.date)
 
 class Data (models.Model):
-    KATUP_OPEN = True
-    KATUP_CLOSED = False
-    KATUP_CHOICES = ((KATUP_OPEN, "Buka"), (KATUP_CLOSED, "Tutup"))
+    POWER_ON = True
+    POWER_OFF = False
+    POWER_CHOICES = ((POWER_ON, "ON"), (POWER_OFF, "OFF"))
     
     alat = models.OneToOneField (Alat)
     methane = models.IntegerField (default = 0)
-    oxygen = models.IntegerField (default = 0)
     pressure = models.IntegerField (default = 0)
-    content = models.IntegerField (default = 0)
-    residu = models.IntegerField (default = 0)
-    katup = models.BooleanField (choices = KATUP_CHOICES, default = KATUP_CLOSED)
+    temperature = models.FloatField (default = 0)
+    power = models.BooleanField (choices = POWER_CHOICES, default = POWER_OFF)
     
     @property
     def today_methane_production (self):
